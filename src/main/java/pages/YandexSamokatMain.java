@@ -72,20 +72,19 @@ public class YandexSamokatMain {
   /**
    * Кликает по верхней кнопке Зказать
    */
-  public void clickUpOrderButton() {
+  public void clickUpperOrderButton() {
     upperOrderButton.click();
   }
 
   /**
    * Кликает по нижней кнопке Зказать
    */
-  public void clickDownOrderButton() {
+  public void clickLowerOrderButton() {
     lowerOrderButton.click();
   }
 
   /**
-   * Метод загружает все вопросы и ответы на них в хранилище (если список вопросов изменится, ничего
-   * не поломается)
+   * Метод загружает все вопросы и ответы на них в хранилище
    */
   public void loadQuestionsAnswers() {
     for (int i = 0; i < questionButtons.size(); i++) {
@@ -96,6 +95,25 @@ public class YandexSamokatMain {
       System.out.println("Question: " + question + " Answer: " + answer);
       questionsAnswers.put(question, answer);
     }
+  }
+
+  /**
+   * Метод возвращает ответ на конкретный вопрос в блоке Вопросы о важном. Если такого вопроса нет,
+   * вернет пустую строку.
+   */
+  public String getAnswer(String question) {
+    String answer = "";
+    for (int i = 0; i < questionButtons.size(); i++) {
+      if (questionButtons.get(i).getText().equals(question)) {
+        wait.until(ExpectedConditions.elementToBeClickable(questionButtons.get(i))).click();
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(
+            ".//div[@id='accordion__panel-" + i + "']"))));
+        answer = driver.findElement(By.xpath(
+            ".//div[@id='accordion__panel-" + i + "']")).getText();
+        break;
+      }
+    }
+    return answer;
   }
 
   /**

@@ -1,3 +1,5 @@
+import static helpers.Constants.YANDEX_SAMOKAT_URL;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,10 +42,11 @@ public class YandexSamokatTest extends BaseTest {
 
   @Test
   public void openQuestionsBlockThanAnswersCorrect() {
+    driver.get(YANDEX_SAMOKAT_URL);
     YandexSamokatMain yandexSamokatMain = new YandexSamokatMain(driver);
     yandexSamokatMain.scrollToElement(yandexSamokatMain.getImportantQuestionsBlock());
-    yandexSamokatMain.loadQuestionsAnswers();
-    String actualAnswer = yandexSamokatMain.getQuestionsAnswers().get(question);
-    Assert.assertEquals("Ответ: " + " Не соответствует вопросу: " + question, answer, actualAnswer);
+    String actualAnswer = yandexSamokatMain.getAnswer(question);
+    Assert.assertEquals("Ответ: " + actualAnswer + " Не соответствует вопросу: " + question,
+        answer, actualAnswer);
   }
 }

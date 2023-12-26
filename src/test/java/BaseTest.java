@@ -22,8 +22,6 @@ public class BaseTest {
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
     driver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
-
-    driver.get("https://qa-scooter.praktikum-services.ru/");
   }
 
   @After

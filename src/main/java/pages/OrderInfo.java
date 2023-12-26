@@ -2,6 +2,7 @@ package pages;
 
 import java.time.Duration;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,10 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class OrderInfo {
 
   private static final String WHEN_BRING_ORDER_FIELD_XPATH = ".//input[@placeholder='* Когда привезти самокат']";
-  private static final String NEXT_MONTH_BUTTON_XPATH = ".//button[@class='react-datepicker__navigation react-datepicker__navigation--next']";
-  private static final String FIRST_MONTH_DAY_BUTTON_XPATH = ".//div[@class='react-datepicker__day react-datepicker__day--001']";
   private static final String ORDER_DAYS_COUNT_FIELD_XPATH = ".//div[@class='Dropdown-placeholder']";
-  private static final String ORDER_DAYS_COUNT_XPATH = ".//div[@class='Dropdown-option' and text()='сутки']";
   private static final String ORDER_BUTTONS_XPATH = ".//button[contains(text(), 'Заказать')]";
   private static final String CONFIRM_ORDER_BUTTON_XPATH = ".//button[contains(text(), 'Да')]";
   private static final String ORDER_INFO_XPATH = ".//div[contains(text(), 'Заказ оформлен')]";
@@ -63,15 +61,12 @@ public class OrderInfo {
 
   /**
    * Метод заполняет данные о заказе
-   * TODO: не прописывать данные явно, а заполнять их через параметры
    */
-  public void inputOrderInfo() {
-    whenBringOrderField.click();
-    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(NEXT_MONTH_BUTTON_XPATH))).click();
-    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(FIRST_MONTH_DAY_BUTTON_XPATH)))
-        .click();
+  public void inputOrderInfo(String startRent, String rentDays) {
+    whenBringOrderField.sendKeys(startRent, Keys.ENTER);
     orderDaysCountField.click();
-    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(ORDER_DAYS_COUNT_XPATH))).click();
+    wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+        String.format(".//div[@class='Dropdown-option' and text()='%s']", rentDays)))).click();
   }
 
   /**

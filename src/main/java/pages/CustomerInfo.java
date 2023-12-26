@@ -23,7 +23,10 @@ public class CustomerInfo {
   private static final String FIELD_PHONE_NUMBER_XPATH = ".//input[@placeholder='* Телефон: на него позвонит курьер']";
   private static final String BUTTON_NEXT_XPATH = ".//button[contains(text(), 'Далее')]";
   private static final String UNDERGROUND_STATION_LIST_XPATH = ".//li[@class='select-search__row']";
+  private static final String TITLE_PAGE_XPATH = ".//div[contains(text(), 'Для кого самокат')]";
 
+  //Заголовок окна
+  private final WebElement title;
   //поле Имя
   private final WebElement fieldFirstName;
   //поле Фамилия
@@ -53,6 +56,7 @@ public class CustomerInfo {
     this.selectorUndergroundStation = driver.findElement(By.xpath(UNDERGROUND_STATION_XPATH));
     this.fieldPhoneNumber = driver.findElement(By.xpath(FIELD_PHONE_NUMBER_XPATH));
     this.buttonNext = driver.findElement(By.xpath(BUTTON_NEXT_XPATH));
+    this.title = driver.findElement(By.xpath(TITLE_PAGE_XPATH));
     this.undergroundStations = new ArrayList<>();
   }
 
@@ -80,6 +84,13 @@ public class CustomerInfo {
    */
   public void clickButtonNext() {
     buttonNext.click();
+  }
+
+  /**
+   * Метод возвращает текст заголовка страницы
+   */
+  public String getTitleText() {
+    return title.getText();
   }
 
   /**
